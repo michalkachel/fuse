@@ -6,6 +6,8 @@ import android.text.Editable;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+
 import butterknife.Bind;
 import butterknife.OnEditorAction;
 import pl.elabo.fuseapp.MessageManager;
@@ -59,12 +61,14 @@ public class MainActivity extends BaseActivity {
 	}
 
 	private void requestForCompany(String companyName) {
+		resetInputAndLogo();
 		mCompanyCall = RestClient.getFuseApi().company(companyName);
 		mCompanyCall.enqueue(new Callback<Company>() {
 			@Override
 			public void onResponse(Response<Company> response, Retrofit retrofit) {
 				if (response.code() == 200 && response.body() != null) {
 					setInputSuccessful(true);
+					setCompany(response.body());
 				} else {
 					setInputSuccessful(false);
 				}
@@ -78,7 +82,18 @@ public class MainActivity extends BaseActivity {
 	}
 
 	private void setInputSuccessful(boolean success) {
-		mCompanyInput.setTextColor(success ? Color.GREEN : Color.RED);
+		mCompanyInput.setBackgroundColor(success ? Color.GREEN : Color.RED);
+	}
+
+	private void setCompany(Company company) {
+		mCompanyInput.setText(company.getName());
+		Glide.with(this).load(company.getLogoUrl()).into(mLogo);
+	}
+
+	private void resetInputAndLogo() {
+		mCompanyInput.setBackgroundColor(Color.WHITE);
+		Glide.clear(mLogo);
+		mLogo.setImageDrawable(null);
 	}
 
 
