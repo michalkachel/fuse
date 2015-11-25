@@ -1,4 +1,5 @@
 <resources>
 	<string name="app_name">Fuse App</string>
 	<string name="hint.type_company_name">Type company name</string>
+	<string name="label.done">Done</string>
 </resources>

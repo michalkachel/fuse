@@ -12,10 +12,13 @@
 	tools:context=".activity.MainActivity">
 
 	<EditText
-		android:id="@+id/input"
+		android:id="@+id/company_input"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:hint="@string/hint.type_company_name"/>
+		android:hint="@string/hint.type_company_name"
+		android:imeActionId="@id/action_done_id"
+		android:imeActionLabel="@string/label.done"
+		android:singleLine="true"/>
 
 	<ImageView
 		android:id="@+id/logo"
